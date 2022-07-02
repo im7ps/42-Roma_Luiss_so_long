@@ -39,6 +39,11 @@ int count_rows()
     return (counter);
 }
 
+items_checker(char  **map)
+{
+    
+}
+
 void empty_checker(char **map)
 {
     if (map[0] == NULL)
@@ -51,38 +56,40 @@ void empty_checker(char **map)
 
 void walls_checker(char **map)
 {
-    size_t i = 0;
-    size_t j = 0;
-    //size_t num_rows = 0;
+    int i = -1;
+    int j = 0;
+    int num_rows = 0;
 
-    //num_rows = count_rows();
-
-    while (map[i++])
+    num_rows = count_rows() - 1; //tolgo uno perchè gli array partono da 0 e questo lo uso come indice
+    while (i < num_rows && map[i++])
     {
-        /*while (map[0][j] != '\n')
+        ft_printf("%s", map[i]);
+        while (map[0][j] != '\n')
         {
             if (map[0][j] != '1')
             {
                 ft_printf("Solo muri sulla prima riga!\n");
                 return ;
-            }    
-        }*/
-        /*if (((map[i][0]) != '1') || ((map[i][ft_strlen(map[i])]) != '1'))
+            }
+            j++;    
+        }
+        j = 0;
+        if (((map[i][0]) != '1') || ((map[i][ft_strlen(map[i]) - 2]) != '1'))
         {
             ft_printf("Solo muri nei bordi!\n");
             return ;
-        }*/
-        /*while (map[num_rows][j] != '\n')
+        }
+        while (map[num_rows][j] != '\n')
         {
             if (map[num_rows][j] != '1')
             {
                 ft_printf("Solo muri sull'ultima riga!\n");
                 return ;
-            }   
-        }*/
-        ft_printf("La mappa è good\n");
-        j++;
+            }
+            j++;
+        }
     }
+    ft_printf("La mappa è good\n");
 }
 
 void   rectangle_checker(char   **map)
@@ -106,9 +113,10 @@ void   rectangle_checker(char   **map)
 
 void    check_map_errors(char **map)
 {
-    empty_checker(map);
-    rectangle_checker(map);
+    //empty_checker(map);
+    //rectangle_checker(map);
     //walls_checker(map);
+    items_checker(map);
 }
 
 char	**upload_map()
