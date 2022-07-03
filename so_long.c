@@ -61,7 +61,7 @@ int items_counter(char c)
     return (p_toggler);
 }
 
-void    items_checker(char  **map)
+int items_checker(char  **map)
 {
     int i;
     int j;
@@ -85,7 +85,8 @@ void    items_checker(char  **map)
         }
     }
     if (items_counter(map[i][j]) != 1 || e_check != 1 || c_check != 2)
-        ft_printf("Error\n");
+        return (1);
+    return (0);
 }
 
 int empty_or_invalid_checker(char **map)
@@ -95,10 +96,7 @@ int empty_or_invalid_checker(char **map)
     int num_rows;
 
     if (map[0] == NULL)
-    {
-        ft_printf("E' vuota bro\n");
         return (1);
-    }
     i = -1;
     num_rows = count_rows();
     while(i < num_rows - 1 && map[i++])
@@ -108,50 +106,31 @@ int empty_or_invalid_checker(char **map)
         {
             if (!(map[i][j] == '0' || map[i][j] == '1' || map[i][j] == 'P' || \
                 map[i][j] == 'E' || map[i][j] == 'C'))
-                ft_printf("Presenta caratteri non validi\n"); 
+                return (2); 
         }
     }
     return (0);
 }
 
-void walls_checker(char **map)
+int walls_checker(char **map)
 {
-    int i = -1;
-    int j = 0;
+    int i = 0;
     int num_rows = 0;
 
     num_rows = count_rows() - 1; //tolgo uno perchè gli array partono da 0 e questo lo uso come indice
+    if(ft_findchar(map[0], '1') == 1)
+        return (1);
+    if(ft_findchar(map[num_rows], '1') == 1)
+        return (3);
     while (i < num_rows && map[i++])
     {
-        while (map[0][j] != '\n')
-        {
-            if (map[0][j] != '1')
-            {
-                ft_printf("Solo muri sulla prima riga!\n");
-                return ;
-            }
-            j++;    
-        }
-        j = 0;
         if (((map[i][0]) != '1') || ((map[i][ft_strlen(map[i]) - 2]) != '1'))
-        {
-            ft_printf("Solo muri nei bordi!\n");
-            return ;
-        }
-        while (map[num_rows][j] != '\n')
-        {
-            if (map[num_rows][j] != '1')
-            {
-                ft_printf("Solo muri sull'ultima riga!\n");
-                return ;
-            }
-            j++;
-        }
+            return (2);
     }
-    ft_printf("La mappa è good\n");
+    return (0);
 }
 
-void   rectangle_checker(char   **map)
+int rectangle_checker(char   **map)
 {
     size_t i = 0;
     size_t tmp = 0;
@@ -163,23 +142,26 @@ void   rectangle_checker(char   **map)
 	{
         if (tmp != ft_strlen(map[i]) && i < num_rows && map[i][0] != '\n')
         {
-		    ft_printf("Not rectangular\n");
-            return ;
+            return (1);
         }
 	}
-    ft_printf("Rettangolare cazo\n");
+    return (0);
 }
 
-void    check_map_errors(char **map)
+int check_map_errors(char **map)
 {
-    //if (empty_or_invalid_checker(map) == 1)
-       // return;
-    //rectangle_checker(map);
-    walls_checker(map);
-    //items_checker(map);
+    if (empty_or_invalid_checker(map) != 0)
+        return (1);
+    if (rectangle_checker(map) != 0)
+        return (1);
+    if (walls_checker(map) != 0)
+        return (1);
+    if (items_checker(map) != 0)
+        return (1);
+    return (0);
 }
 
-char	**upload_map()
+char **upload_map()
 {
 	int		    fd;
 	int		    i;
@@ -201,5 +183,8 @@ int main(void)
     char **map;
 
     map = upload_map();
-    check_map_errors(map);
+    if(check_map_errors(map) == 1)
+        ft_printf("Error\n");
+    else
+        ft_printf("Valid\n");
 }

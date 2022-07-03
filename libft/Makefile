@@ -27,6 +27,7 @@ LIBSRCS = ft_isalpha.c \
 	      ft_strlen.c \
 	      ft_strncmp.c \
 		  ft_memset.c \
+		  ft_findchar.c \
 		  ft_tolower.c \
 		  ft_toupper.c \
 		  ft_bzero.c \
