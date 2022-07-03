@@ -75,11 +75,10 @@ void    items_checker(char  **map)
         j = -1;
         while(map[i][++j] != '\n')
         {
-            if (!(map[i][j] == '0' || map[i][j] == '1' || map[i][j] == 'P' || map[i][j] == 'E' || map[i][j] == 'C'))
+            if (!(map[i][j] == '0' || map[i][j] == '1' || map[i][j] == 'P' || \
+                map[i][j] == 'E' || map[i][j] == 'C'))
                 ft_printf("invalid char %c\n", map[i][j]);
-            else if (map[i][j] == 'P')
-                items_counter(map[i][j]);
-            else if (map[i][j] == 'E')
+            else if (map[i][j] == 'P' || map[i][j] == 'E')
                 e_check = items_counter(map[i][j]);
             else if (map[i][j] == 'C')
                 c_check = items_counter(map[i][j]);
