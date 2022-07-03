@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 /*DA RICORDARE:
+    per ragioni di norma la funzione empty_checker è diventata empty_or_invalid_checker svolgendo DUE funzioni
     se la mappa è vuota il counter delle righe viene messo manualmente = 1
     dove ci sono i = -1 servono per non andare in seg fault, di solito nella condizione del while ci sarà un i++ così controlla se è vera o falsa e la pone = 0
 */
@@ -75,10 +76,9 @@ void    items_checker(char  **map)
         j = -1;
         while(map[i][++j] != '\n')
         {
-            if (!(map[i][j] == '0' || map[i][j] == '1' || map[i][j] == 'P' || \
-                map[i][j] == 'E' || map[i][j] == 'C'))
-                ft_printf("invalid char %c\n", map[i][j]);
-            else if (map[i][j] == 'P' || map[i][j] == 'E')
+            if (map[i][j] == 'P')
+                items_counter(map[i][j]);
+            else if (map[i][j] == 'E')
                 e_check = items_counter(map[i][j]);
             else if (map[i][j] == 'C')
                 c_check = items_counter(map[i][j]);
@@ -88,14 +88,30 @@ void    items_checker(char  **map)
         ft_printf("Error\n");
 }
 
-void empty_checker(char **map)
+int empty_or_invalid_checker(char **map)
 {
+    int i;
+    int j;
+    int num_rows;
+
     if (map[0] == NULL)
     {
         ft_printf("E' vuota bro\n");
-        return ;
+        return (1);
     }
-    ft_printf("E' piena bro\n");
+    i = -1;
+    num_rows = count_rows();
+    while(i < num_rows - 1 && map[i++])
+    {
+        j = -1;
+        while(map[i][++j] != '\n')
+        {
+            if (!(map[i][j] == '0' || map[i][j] == '1' || map[i][j] == 'P' || \
+                map[i][j] == 'E' || map[i][j] == 'C'))
+                ft_printf("Presenta caratteri non validi\n"); 
+        }
+    }
+    return (0);
 }
 
 void walls_checker(char **map)
@@ -107,7 +123,6 @@ void walls_checker(char **map)
     num_rows = count_rows() - 1; //tolgo uno perchè gli array partono da 0 e questo lo uso come indice
     while (i < num_rows && map[i++])
     {
-        ft_printf("%s", map[i]);
         while (map[0][j] != '\n')
         {
             if (map[0][j] != '1')
@@ -157,10 +172,11 @@ void   rectangle_checker(char   **map)
 
 void    check_map_errors(char **map)
 {
-    //empty_checker(map);
+    //if (empty_or_invalid_checker(map) == 1)
+       // return;
     //rectangle_checker(map);
-    //walls_checker(map);
-    items_checker(map);
+    walls_checker(map);
+    //items_checker(map);
 }
 
 char	**upload_map()
@@ -175,10 +191,7 @@ char	**upload_map()
 	fd = open("./maps/map1.ber", O_RDONLY);
 	map = (char **) malloc (sizeof(char *) * (num_rows + 1));
 	while (i++ < num_rows - 1)
-    {
         map[i] = get_next_line(fd, 1);
-        //ft_printf("%s", map[i]);
-    }
     close(fd);
 	return (map);
 }
