@@ -39,9 +39,54 @@ int count_rows()
     return (counter);
 }
 
-items_checker(char  **map)
+int items_counter(char c)
 {
-    
+    static int p_toggler = 0;   //lo trova e aumenta di 1, alla fine se non è 1 o non lo ha trovato mai o l ha trovato troppe volte
+    static int e_toggler = 0;
+    static int c_toggler = 0;
+
+    if (c == 'P')
+        p_toggler++;
+    else if (c == 'E')
+    {
+        e_toggler++;
+        return (1); //se è presente almeno una volta verrà ritornato il valore e potrò controllare la variabile ad esso associata, se è 1 vuol dire che c'è almeno un'uscita
+    }
+    else if (c == 'C')
+    {
+        c_toggler++;
+        return (2); //se è presente almeno una volta verrà ritornato il valore e potrò controllare la variabile ad esso associata, se è 2 vuol dire che c'è almeno un collezionabile
+    }
+    return (p_toggler);
+}
+
+void    items_checker(char  **map)
+{
+    int i;
+    int j;
+    int num_rows;
+    int e_check;
+    int c_check;
+
+    i = -1;
+    num_rows = count_rows();
+    while(i < num_rows - 1 && map[i++])
+    {
+        j = -1;
+        while(map[i][++j] != '\n')
+        {
+            if (!(map[i][j] == '0' || map[i][j] == '1' || map[i][j] == 'P' || map[i][j] == 'E' || map[i][j] == 'C'))
+                ft_printf("invalid char %c\n", map[i][j]);
+            else if (map[i][j] == 'P')
+                items_counter(map[i][j]);
+            else if (map[i][j] == 'E')
+                e_check = items_counter(map[i][j]);
+            else if (map[i][j] == 'C')
+                c_check = items_counter(map[i][j]);
+        }
+    }
+    if (items_counter(map[i][j]) != 1 || e_check != 1 || c_check != 2)
+        ft_printf("Error\n");
 }
 
 void empty_checker(char **map)
@@ -126,7 +171,7 @@ char	**upload_map()
     int         num_rows;
 	char	    **map;
 
-    i = -1; //i = -1 così posso risparmiare un rigo e aumentare la i nella condizione del while riga 106
+    i = -1; //i = -1 così posso risparmiare un rigo e aumentare la i nella condizione del while 4 righe in basso
     num_rows = count_rows();
 	fd = open("./maps/map1.ber", O_RDONLY);
 	map = (char **) malloc (sizeof(char *) * (num_rows + 1));
