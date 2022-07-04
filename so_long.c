@@ -61,130 +61,125 @@ int items_counter(char c)
     return (p_toggler);
 }
 
-int items_checker(char  **map)
+int items_checker(s_map  *map_ptr)
 {
     int i;
     int j;
-    int num_rows;
-    int e_check;
-    int c_check;
 
     i = -1;
-    num_rows = count_rows();
-    while(i < num_rows - 1 && map[i++])
+    map_ptr->rows = count_rows();
+    while(i < map_ptr->rows - 1 && map_ptr->map[i++])
     {
         j = -1;
-        while(map[i][++j] != '\n')
+        while(map_ptr->map[i][++j] != '\n')
         {
-            if (map[i][j] == 'P')
-                items_counter(map[i][j]);
-            else if (map[i][j] == 'E')
-                e_check = items_counter(map[i][j]);
-            else if (map[i][j] == 'C')
-                c_check = items_counter(map[i][j]);
+            if (map_ptr->map[i][j] == 'P')
+                map_ptr->p = items_counter(map_ptr->map[i][j]);
+            else if (map_ptr->map[i][j] == 'E')
+                map_ptr->e = items_counter(map_ptr->map[i][j]);
+            else if (map_ptr->map[i][j] == 'C')
+                map_ptr->c = items_counter(map_ptr->map[i][j]);
         }
     }
-    if (items_counter(map[i][j]) != 1 || e_check != 1 || c_check != 2)
+    if (map_ptr->p != 1 || map_ptr->e != 1 || map_ptr->c != 2)
         return (1);
     return (0);
 }
 
-int empty_or_invalid_checker(char **map)
+int empty_or_invalid_checker(s_map  *map_ptr)
 {
     int i;
     int j;
-    int num_rows;
 
-    if (map[0] == NULL)
+    if (map_ptr->map[0] == NULL)
         return (1);
     i = -1;
-    num_rows = count_rows();
-    while(i < num_rows - 1 && map[i++])
+    map_ptr->rows = count_rows();
+    while(i < map_ptr->rows - 1 && map_ptr->map[i++])
     {
         j = -1;
-        while(map[i][++j] != '\n')
+        while(map_ptr->map[i][++j] != '\n')
         {
-            if (!(map[i][j] == '0' || map[i][j] == '1' || map[i][j] == 'P' || \
-                map[i][j] == 'E' || map[i][j] == 'C'))
-                return (2); 
+            if (!(map_ptr->map[i][j] == '0' || map_ptr->map[i][j] == '1' || \
+                map_ptr->map[i][j] == 'P' || map_ptr->map[i][j] == 'E' \
+                || map_ptr->map[i][j] == 'C'))
+                return (2);
         }
     }
     return (0);
 }
 
-int walls_checker(char **map)
+int walls_checker(s_map *map_ptr)
 {
     int i = 0;
-    int num_rows = 0;
 
-    num_rows = count_rows() - 1; //tolgo uno perchè gli array partono da 0 e questo lo uso come indice
-    if(ft_findchar(map[0], '1') == 1)
+    map_ptr->rows = count_rows() - 1; //tolgo uno perchè gli array partono da 0 e questo lo uso come indice
+    if(ft_findchar(map_ptr->map[0], '1') == 1)
         return (1);
-    if(ft_findchar(map[num_rows], '1') == 1)
+    if(ft_findchar(map_ptr->map[map_ptr->rows], '1') == 1)
         return (3);
-    while (i < num_rows && map[i++])
+    while (i < map_ptr->rows && map_ptr->map[i++])
     {
-        if (((map[i][0]) != '1') || ((map[i][ft_strlen(map[i]) - 2]) != '1'))
+        if (((map_ptr->map[i][0]) != '1') || ((map_ptr->map[i][ft_strlen(map_ptr->map[i]) - 2]) != '1'))
             return (2);
     }
     return (0);
 }
 
-int rectangle_checker(char   **map)
+int rectangle_checker(s_map  *map_ptr)
 {
-    size_t i = 0;
+    int i = 0;
     size_t tmp = 0;
-    size_t num_rows;
 
-    num_rows = count_rows();
-    tmp = ft_strlen(map[0]);
-    while (map[i++])
+    map_ptr->rows = count_rows();
+    tmp = ft_strlen(map_ptr->map[0]);
+    while (map_ptr->map[i++])
 	{
-        if (tmp != ft_strlen(map[i]) && i < num_rows && map[i][0] != '\n')
-        {
+        if (tmp != ft_strlen(map_ptr->map[i]) && \
+         i < map_ptr->rows && map_ptr->map[i][0] != '\n')
             return (1);
-        }
 	}
     return (0);
 }
 
-int check_map_errors(char **map)
+int check_map_errors(s_map  *map_ptr)
 {
-    if (empty_or_invalid_checker(map) != 0)
+    if (empty_or_invalid_checker(map_ptr) != 0)
         return (1);
-    if (rectangle_checker(map) != 0)
+    if (rectangle_checker(map_ptr) != 0)
         return (1);
-    if (walls_checker(map) != 0)
+    if (walls_checker(map_ptr) != 0)
         return (1);
-    if (items_checker(map) != 0)
+    if (items_checker(map_ptr) != 0)
         return (1);
     return (0);
 }
 
-char **upload_map()
+char **upload_map(s_map  *map_ptr)
 {
 	int		    fd;
 	int		    i;
-    int         num_rows;
-	char	    **map;
 
     i = -1; //i = -1 così posso risparmiare un rigo e aumentare la i nella condizione del while 4 righe in basso
-    num_rows = count_rows();
+    map_ptr->rows = count_rows();
 	fd = open("./maps/map1.ber", O_RDONLY);
-	map = (char **) malloc (sizeof(char *) * (num_rows + 1));
-	while (i++ < num_rows - 1)
-        map[i] = get_next_line(fd, 1);
+	map_ptr->map = (char **) malloc (sizeof(char *) * (map_ptr->rows + 1));
+	while (i++ < map_ptr->rows - 1)
+        map_ptr->map[i] = get_next_line(fd, 1);
     close(fd);
-	return (map);
+	return (map_ptr->map);
 }
 
 int main(void)
 {
-    char **map;
+    s_map *map_ptr;
 
-    map = upload_map();
-    if(check_map_errors(map) == 1)
+    map_ptr = (s_map *) malloc (sizeof(s_map));
+    map_ptr->map = upload_map(map_ptr);
+    if(check_map_errors(map_ptr) == 1)
         ft_printf("Error\n");
     else
         ft_printf("Valid\n");
 }
+
+//->
