@@ -4,11 +4,13 @@ CC		=	gcc
 
 CFLAGS	=	-Wall -Wextra -Werror
 
-SRC	=	so_long.c\
+SRC		=	so_long.c\
 
-OBJ	=	$(SRC:.c=.o)
+OBJ		=	$(SRC:.c=.o)
 
-LIBFT = libft/libft.a
+LIBFT 	= 	libft/libft.a
+
+MLX		=	./libmlx.dylib
 
 RM		=	rm -rf
 
@@ -17,7 +19,7 @@ RM		=	rm -rf
 
 $(NAME):	$(OBJ)
 			@make -C ./libft
-			@($(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT))
+			@($(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) $(LIBFT))
 
 all:		$(NAME)
 
