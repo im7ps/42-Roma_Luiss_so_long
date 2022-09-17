@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 16:33:26 by sgerace           #+#    #+#             */
-/*   Updated: 2022/07/01 20:02:31 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/09/17 20:17:44 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*DA RICORDARE:
-    per ragioni di norma la funzione empty_checker è diventata empty_or_invalid_checker svolgendo DUE funzioni
-    se la mappa è vuota il counter delle righe viene messo manualmente = 1
-    dove ci sono i = -1 servono per non andare in seg fault, di solito nella condizione del while ci sarà un i++ così controlla se è vera o falsa e la pone = 0
-*/
 #include "so_long.h"
 
-int count_rows()
+int count_rows(void)
 {
-	int		counter;
+	int     counter;
     int     fd;
-	char	*row;
+	char    *row;
 
     counter = 0;
 	fd = open("./maps/map1.ber", O_RDONLY);
@@ -42,9 +37,9 @@ int count_rows()
 
 int items_counter(char c)
 {
-    static int p_toggler = 0;   //lo trova e aumenta di 1, alla fine se non è 1 o non lo ha trovato mai o l ha trovato troppe volte
-    static int e_toggler = 0;
-    static int c_toggler = 0;
+    static int p_toggler;   //lo trova e aumenta di 1, alla fine se non è 1 o non lo ha trovato mai o l ha trovato troppe volte
+    static int e_toggler;
+    static int c_toggler;
 
     if (c == 'P')
         p_toggler++;
@@ -61,17 +56,20 @@ int items_counter(char c)
     return (p_toggler);
 }
 
-int items_checker(s_map  *map_ptr)
+int items_checker(s_map *map_ptr)
 {
     int i;
     int j;
 
-    i = -1;
+    i = 0;
+    map_ptr->e = 0;
+    map_ptr->c = 0;
+    map_ptr->p = 0;
     map_ptr->rows = count_rows();
-    while(i < map_ptr->rows - 1 && map_ptr->map[i++])
+    while(i < map_ptr->rows && map_ptr->map[i])
     {
         j = -1;
-        while(map_ptr->map[i][++j] != '\n')
+        while(map_ptr->map[i][++j] != '\0')
         {
             if (map_ptr->map[i][j] == 'P')
                 map_ptr->p = items_counter(map_ptr->map[i][j]);
@@ -80,8 +78,9 @@ int items_checker(s_map  *map_ptr)
             else if (map_ptr->map[i][j] == 'C')
                 map_ptr->c = items_counter(map_ptr->map[i][j]);
         }
+        i++;
     }
-    if (map_ptr->p != 1 || map_ptr->e != 1 || map_ptr->c != 2)
+    if (map_ptr->p != 1 || map_ptr->e != 1 || map_ptr->c == 0)
         return (1);
     return (0);
 }
@@ -93,18 +92,22 @@ int empty_or_invalid_checker(s_map  *map_ptr)
 
     if (map_ptr->map[0] == NULL)
         return (1);
-    i = -1;
+    if (map_ptr->map[0][0] == '\n' || map_ptr->map[0][0] == '\0')
+        return (1);
+    i = 0;
     map_ptr->rows = count_rows();
-    while(i < map_ptr->rows - 1 && map_ptr->map[i++])
+    while(i < map_ptr->rows)
     {
-        j = -1;
-        while(map_ptr->map[i][++j] != '\n')
+        j = 0;
+        while(map_ptr->map[i][j] != '\n' && map_ptr->map[i][j] != '\0')
         {
             if (!(map_ptr->map[i][j] == '0' || map_ptr->map[i][j] == '1' || \
                 map_ptr->map[i][j] == 'P' || map_ptr->map[i][j] == 'E' \
                 || map_ptr->map[i][j] == 'C'))
                 return (2);
+            j++;
         }
+        i++;
     }
     return (0);
 }
@@ -126,18 +129,45 @@ int walls_checker(s_map *map_ptr)
     return (0);
 }
 
+char find_last(s_map  *map_ptr)
+{
+    int i;
+    int j;
+    
+    i = 0;
+    while (map_ptr->map[i] && i < count_rows())
+    {
+        j = 0;
+        while (map_ptr->map[i][j])
+        {
+            j++;
+        }
+        i++;
+    }
+    if (map_ptr->map[i-1][j-1] == '\n')
+        return (map_ptr->map[i-1][j-1]);
+    return (map_ptr->map[i-1][j]); 
+
+}
+
 int rectangle_checker(s_map  *map_ptr)
 {
-    int i = 0;
-    size_t tmp = 0;
+    int     i = 0;
+    char    last_elem; 
+    size_t  tmp = 0;
 
     map_ptr->rows = count_rows();
+    if (map_ptr->rows < 3)
+        return (1);
+    last_elem = find_last(map_ptr);
     tmp = ft_strlen(map_ptr->map[0]);
-    while (map_ptr->map[i++])
+    while (i < map_ptr->rows)
 	{
-        if (tmp != ft_strlen(map_ptr->map[i]) && \
-         i < map_ptr->rows && map_ptr->map[i][0] != '\n')
+        if (last_elem == '\0' && i == (map_ptr->rows - 1))
+            tmp--;
+        if (tmp != ft_strlen(map_ptr->map[i]))
             return (1);
+        i++;
 	}
     return (0);
 }
