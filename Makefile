@@ -4,30 +4,36 @@ CC		=	gcc
 
 CFLAGS	=	-Wall -Wextra -Werror
 
-SRC		=	so_long.c\
+SRC		=	ft_main.c \
+			so_long.c\
+			ft_image.c \
+			ft_key_hooks.c \
+			ft_window.c \
 
-OBJ		=	$(SRC:.c=.o)
+OBJ	=	$(SRC:.c=.o)
 
-LIBFT 	= 	libft/libft.a
+LIBFT = libft/libft.a
 
 MLX		=	./libmlx.dylib
 
 RM		=	rm -rf
 
 %.o: %.c
-			@($(CC) ${CFLAGS} -g -c $< -o $@)
+			$(CC) ${CFLAGS} -g -c $< -o $@
 
 $(NAME):	$(OBJ)
 			@make -C ./libft
-			@($(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) $(LIBFT))
+			$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) $(LIBFT)
 
 all:		$(NAME)
 
 clean:
-			@(${RM} $(OBJ))
+			@make clean -C libft
+			${RM} $(OBJ)
 
 fclean: 	clean
-			@(${RM} $(NAME) ${OBJ})
+			@make fclean -C libft
+			${RM} $(NAME) ${OBJ}
 
 re:			fclean all
 

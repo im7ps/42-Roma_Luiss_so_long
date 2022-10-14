@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 16:33:26 by sgerace           #+#    #+#             */
-/*   Updated: 2022/09/17 20:42:37 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/14 15:18:14 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int items_checker(s_map *map_ptr)
     return (0);
 }
 
-int empty_or_invalid_checker(s_map  *map_ptr)
+int empty_or_invalid_checker(s_map  *map_ptr) //controlla che esista la mappa e che sia riempita solo con caratteri accettati
 {
     int i;
     int j;
@@ -189,7 +189,7 @@ void	moves_counter(void	*mlx_ptr, void	*win_ptr)
 {
 	int x = 30;
 	int y = 30;
-	int color = 0x11FFAA;
+	int color = 0xFFFFFF;
 	char *string = "moves counter";
 	int wtf;
 
@@ -197,54 +197,6 @@ void	moves_counter(void	*mlx_ptr, void	*win_ptr)
 	printf("non so cosa sia ma mlx_string_put vale: %d\n", wtf);
 }
 
-void	insert_image(void	*mlx_ptr, void	*win_ptr, int image_posX, \
-					int image_posY)
-{
-	void	*img_ptr;
-	int w = 256;
-	int h = 256;
-	int	*width = &w;
-	int	*height = &h;
-	char *file_path = "./images/one_piece_img.xpm";
-
-	img_ptr = mlx_xpm_file_to_image(mlx_ptr, file_path, width, height); //crea un'ímmagine in memoria, ritorna void* (l indirizzo in memoria) per poter essere manipolata
-	if (img_ptr ==	(void *)0)
-	{
-		printf("errore nella creazione dell'immagine");
-		exit (3);
-	}
-	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, image_posX, image_posY); //visualizza l immagine sul display secondo le coordinate desiderate (x e y)
-}
-
-void	*initialize_window(void	*mlx_ptr)
-{
-	void	*win_ptr;
-	int		size_x = 1000;
-	int		size_y = 1000;
-	char	*title = "Hello!";
-
-	win_ptr = mlx_new_window(mlx_ptr, size_x, size_y, title); //crea un nuovo display
-	if (win_ptr == (void *)0)
-	{
-		free(win_ptr);
-		printf("errore nella creazione della finestra");
-		exit (2);
-	}
-	return (win_ptr);
-}
-
-void	*initialize_pointer()
-{
-	void	*mlx_ptr;
-
-	mlx_ptr = mlx_init(); //mlx_init ritorna un puntatore che contiene l indirizzo (è void *) del nostro display, lo si usa per manipolarlo, ritorna NULL se qualcosa va storto
-	if (mlx_ptr == (void *)0) //come scritto nella guida, il puntatore ritorna (void *)0 in caso di fallimento
-	{
-		printf("errore di inizializzazione");
-		exit (1);
-	}
-	return (mlx_ptr);
-}
 
 char **upload_map(s_map  *map_ptr)
 {
@@ -261,24 +213,51 @@ char **upload_map(s_map  *map_ptr)
 	return (map_ptr->map);
 }
 
-int main(void)
-{
-    s_map   *map_ptr;
-	void	*mlx_ptr;
-	void	*win_ptr;
+//void	insert_image(void	*mlx_ptr, void	*win_ptr, int image_posX, \
+//					int image_posY)
+//{
+//	void	*img_ptr;
+//	int w = 256;
+//	int h = 256;
+//	char *file_path = "./images/one_piece_img.xpm";
 
+//	img_ptr = mlx_xpm_file_to_image(mlx_ptr, file_path, &w, &h); //crea un'ímmagine in memoria, ritorna void* (l indirizzo in memoria) per poter essere manipolata
+//	if (img_ptr ==	(void *)0)
+//	{
+//		//free(file_path);
+//		printf("errore nella creazione dell'immagine");
+//		exit (3);
+//	}
+//	mlx_put_image_to_window(mlx_ptr, win_ptr, img_ptr, image_posX, image_posY); //visualizza l immagine sul display secondo le coordinate desiderate (x e y)
+//}
 
-    mlx_ptr = initialize_pointer();
-	win_ptr = initialize_window(mlx_ptr);
-    insert_image(mlx_ptr, win_ptr, 250, 250);
-	moves_counter(mlx_ptr, win_ptr);
-	//mlx_loop(mlx_ptr);
-	mlx_destroy_window(mlx_ptr, win_ptr);
+//void	*initialize_window(void	*mlx_ptr)
+//{
+//	void	*win_ptr;
+//	int		size_x = 1000;
+//	int		size_y = 1000;
+//	char	*title = "Hello!";
 
-    map_ptr = (s_map *) malloc (sizeof(s_map));
-    map_ptr->map = upload_map(map_ptr);
-    if(check_map_errors(map_ptr) == 1)
-        ft_printf("Error\n");
-    else
-        ft_printf("Valid\n");
-}
+//	win_ptr = mlx_new_window(mlx_ptr, size_x, size_y, title); //crea un nuovo display
+//	if (win_ptr == (void *)0)
+//	{
+//		//free(win_ptr); //LEAKS CHECK: giá ritorna nullo, va freeato?
+//		printf("errore nella creazione della finestra");
+//		exit (2);
+//	}
+//	return (win_ptr);
+//}
+
+//void	*initialize_pointer()
+//{
+//	void	*mlx_ptr;
+
+//	mlx_ptr = mlx_init(); //mlx_init ritorna un puntatore che contiene l indirizzo (è void *) del nostro display, lo si usa per manipolarlo, ritorna NULL se qualcosa va storto
+//	if (mlx_ptr == (void *)0) //come scritto nella guida, il puntatore ritorna (void *)0 in caso di fallimento
+//	{
+//		//free(mlx_ptr); //LEAKS CHECK: giá ritorna nullo, va freeato?
+//		printf("errore di inizializzazione");
+//		exit (1);
+//	}
+//	return (mlx_ptr);
+//}
