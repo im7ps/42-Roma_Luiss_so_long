@@ -5,10 +5,12 @@ CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror
 
 SRC		=	ft_main.c \
-			so_long.c\
 			ft_image.c \
 			ft_key_hooks.c \
 			ft_window.c \
+			ft_map.c \
+			ft_map_checker.c \
+			ft_utils.c \
 
 OBJ	=	$(SRC:.c=.o)
 

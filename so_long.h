@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/14 15:22:59 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/17 17:04:59 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,22 +60,26 @@ typedef struct s_map
 	int		e;
 	int		p;
 	int		c;
-}   s_map;
+}	t_map;
 
-t_window	ft_init_window(void *mlx, int widht, int height, char *name);
-t_image		ft_new_sprite(void *mlx, char *path);
+/*t_window	ft_init_window(void *mlx, int widht, int height, char *name); SAMPLE*/ 
+t_window	ft_init_window(void *mlx, t_map map_p, char *map_model, char *title);
+t_image		ft_new_sprite(void *mlx, char img);
 int			ft_input(int key, t_program *program);
 
-char	**upload_map(s_map  *map_ptr);
+int		check_map_errors(t_map  *map_ptr, const char *map_model);
+int		upload_map(t_map  *map_ptr, const char *map_model);
+int		rectangle_checker(t_map  *map_ptr, const char *map_model);
+int		walls_checker(t_map *map_ptr, const char *map_model);
+int		empty_or_invalid_checker(t_map  *map_ptr, const char *map_model);
+int		items_checker(t_map *map_ptr, const char *map_model);
+int		ft_count_rows(const char *map_model);
+char	ft_find_last(t_map  *map_ptr, const char *map_model);
+
+void	ft_load_textures(t_program program, t_map  map_p, const char *map_model);
+
 void	moves_counter(void	*mlx_ptr, void	*win_ptr);
-int		check_map_errors(s_map  *map_ptr);
-int		rectangle_checker(s_map  *map_ptr);
-char	find_last(s_map  *map_ptr);
-int		walls_checker(s_map *map_ptr);
-int		empty_or_invalid_checker(s_map  *map_ptr);
-int		items_checker(s_map *map_ptr);
 int		items_counter(char c);
-int		count_rows(void);
 
 //void		*initialize_window(void	*mlx_ptr);
 //void		*initialize_pointer();
