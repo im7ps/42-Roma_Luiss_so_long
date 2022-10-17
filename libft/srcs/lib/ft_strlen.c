@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 14:50:56 by sgerace           #+#    #+#             */
-/*   Updated: 2022/06/30 20:46:00 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/17 19:02:49 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../includes/libft.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	size_t	c;
+	int	c;
 
 	c = 0;
 	if (!str)

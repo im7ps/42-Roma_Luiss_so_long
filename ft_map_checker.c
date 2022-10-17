@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:12:44 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/17 16:11:49 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/17 19:03:51 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ int rectangle_checker(t_map  *map_ptr, const char *map_model)
 {
     int     i = 0;
     char    last_elem; 
-    size_t  tmp = 0;
+    int  tmp = 0;
 
     map_ptr->rows = ft_count_rows(map_model);
     if (map_ptr->rows < 3)

@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:09:09 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/17 16:12:39 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/17 19:02:11 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int ft_count_rows(const char *map)
 {
-	int		counter;
+	int	counter;
 	int		fd;
 	char	*row;
 

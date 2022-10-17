@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:11:33 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/17 18:16:26 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/17 19:29:20 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void ft_load_textures(t_program program, t_map  map_p, const char *map_model)
 {
 	int	i;
-	size_t	j;
+	int	j;
 
 	i = 0;
 	while (i < ft_count_rows(map_model))

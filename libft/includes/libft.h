@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/26 16:23:15 by sgerace           #+#    #+#             */
-/*   Updated: 2022/06/30 19:10:10 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/17 19:05:50 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_strchr(const char *s, int c);
 int 	ft_findchar(const char *s, int c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *s);
+int		ft_strlen(const char *s);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_strrchr(const char *str, int c);
@@ -46,7 +46,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_substr(char const *s, int start, int len);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strtrim(char const *s1, char const *set);
 char	*ft_itoa(int n);

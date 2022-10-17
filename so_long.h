@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/17 17:04:59 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/17 19:03:25 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_map
 /*t_window	ft_init_window(void *mlx, int widht, int height, char *name); SAMPLE*/ 
 t_window	ft_init_window(void *mlx, t_map map_p, char *map_model, char *title);
 t_image		ft_new_sprite(void *mlx, char img);
-int			ft_input(int key, t_program *program);
+int			ft_input(int key, t_program *program, t_map map_p, const char *map_model);
 
 int		check_map_errors(t_map  *map_ptr, const char *map_model);
 int		upload_map(t_map  *map_ptr, const char *map_model);
