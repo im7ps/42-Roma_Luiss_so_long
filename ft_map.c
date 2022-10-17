@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:11:33 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/17 18:08:32 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/17 18:16:26 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void ft_load_textures(t_program program, t_map  map_p, const char *map_model)
 			program.sprite = ft_new_sprite(program.mlx, map_p.map[i][j]);
 			program.sprite_position.x = i * 128;
 			program.sprite_position.y = j * 128;
-			mlx_put_image_to_window(program.mlx, program.window.pointer, program.sprite.pointer, program.sprite_position.x, program.sprite_position.y);
+			mlx_put_image_to_window(program.mlx, program.window.pointer, program.sprite.pointer, program.sprite_position.y, program.sprite_position.x);
 			j++;
 		}
 		i++;
