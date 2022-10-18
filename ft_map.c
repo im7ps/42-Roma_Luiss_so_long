@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:11:33 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/18 19:20:26 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/18 20:19:51 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void ft_load_textures(t_program *program, t_map  map_p, const char *map_model)
 			program->sprite_position.y = j * 128;
 			if (map_p.map[i][j] == 'P')
 			{
-				program->player.position.y = i * 128;
-				program->player.position.x = j * 128;
+				program->player.position.x = i * 128;
+				program->player.position.y = j * 128;
 				program->player.sprite.pointer = program->sprite.pointer;
 			}
 			if (map_p.map[i][j] == '0')
