@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 14:13:09 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/17 20:41:31 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/18 18:49:59 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,26 +71,26 @@ int	ft_found_player_x(t_map map_p, const char *map_model)
 	return (x);
 }
 
-int	ft_input(int key, t_program *program_ref, t_map map_p, const char *map_model)
+int	ft_input(int key, t_program *program)
 {
-	t_program	*program;
+	//mlx_clear_window(program->mlx, program->window.pointer);
+	program->floor.position.x = program->player.position.x;
+	program->floor.position.y = program->player.position.y;
+	//mlx_destroy_image(program->mlx, program->player.sprite.pointer);
+	mlx_put_image_to_window(program->mlx, program->window.pointer, program->floor.sprite.pointer, program->floor.position.x, program->floor.position.y);
 
-	program = program_ref;
-	ft_printf("PATH1: %s\n", map_model); //CHECKPOINT: non viene caricato il percorso della mappa!
-	ft_found_player_x(map_p, map_model);
-	//ft_found_player_y(map_p, map_model);
-	/*mlx_clear_window(program->mlx, program->window.pointer);
 
-	if (key == 124)
-		program->sprite_position.x += program->sprite.size.x;
-	else if (key == 123)
-		program->sprite_position.x -= program->sprite.size.x;
-	else if (key == 125)
-		program->sprite_position.y += program->sprite.size.y;
-	else if (key == 126)
-		program->sprite_position.y -= program->sprite.size.y;
-
-	mlx_put_image_to_window(program->mlx, program->window.pointer, program->sprite.pointer, program->sprite_position.x, program->sprite_position.y);*/
+	if (key == 2) //destra
+		program->player.position.x += 128;
+	else if (key == 0) //sinistra
+		program->player.position.x -= 128;
+	else if (key == 1) //giú
+		program->player.position.y += 128;
+	else if (key == 13) //su
+		program->player.position.y -= 128;
+		
+	
+	mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
 	ft_printf("Key pressed: %d\n", key);
 	return (0);
 }

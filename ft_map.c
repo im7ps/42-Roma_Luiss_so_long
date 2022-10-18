@@ -6,13 +6,13 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:11:33 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/17 19:29:20 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/18 18:46:43 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void ft_load_textures(t_program program, t_map  map_p, const char *map_model)
+void ft_load_textures(t_program *program, t_map  map_p, const char *map_model)
 {
 	int	i;
 	int	j;
@@ -24,10 +24,28 @@ void ft_load_textures(t_program program, t_map  map_p, const char *map_model)
 		while (j < ft_strlen(map_p.map[0]) - 1)
 		{
 			ft_printf("CURRENT: %c\n", map_p.map[i][j]);
-			program.sprite = ft_new_sprite(program.mlx, map_p.map[i][j]);
-			program.sprite_position.x = i * 128;
-			program.sprite_position.y = j * 128;
-			mlx_put_image_to_window(program.mlx, program.window.pointer, program.sprite.pointer, program.sprite_position.y, program.sprite_position.x);
+			program->sprite = ft_new_sprite(program->mlx, map_p.map[i][j]);
+			program->sprite_position.x = i * 128;
+			program->sprite_position.y = j * 128;
+			if (map_p.map[i][j] == 'P')
+			{
+				program->player.position.y = i * 128;
+				program->player.position.x = j * 128;
+				program->player.sprite.pointer = program->sprite.pointer;
+			}
+			if (map_p.map[i][j] == '0')
+			{
+				//program->player.position.y = i * 128;
+				//program->player.position.x = j * 128;
+				program->floor.sprite.pointer = program->sprite.pointer;
+			}
+			if (map_p.map[i][j] == 'C')
+			{
+				//program->coin.position.y = i * 128;
+				//program->coin.position.x = j * 128;
+				program->coin.sprite.pointer = program->sprite.pointer;
+			}
+			mlx_put_image_to_window(program->mlx, program->window.pointer, program->sprite.pointer, program->sprite_position.y, program->sprite_position.x);
 			j++;
 		}
 		i++;
