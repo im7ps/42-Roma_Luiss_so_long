@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/18 18:44:25 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/18 19:07:07 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct	s_vector
 	int	x;
 	int	y;
 }				t_vector;
-
 /* A pointer to the window and its size */
 typedef struct	s_window {
 	void		*pointer;
@@ -62,16 +61,6 @@ typedef struct	s_player {
 	t_image		sprite;
 }				t_player;
 
-typedef struct	s_program {
-	void		*mlx;
-	t_window	window;
-	t_image		sprite;
-	t_vector	sprite_position;
-	t_player	player;
-	t_floor		floor;
-	t_coin		coin;
-}				t_program;
-
 typedef struct s_map
 {
 	char	**map;
@@ -80,6 +69,17 @@ typedef struct s_map
 	int		p;
 	int		c;
 }	t_map;
+
+typedef struct	s_program {
+	void		*mlx;
+	t_window	window;
+	t_map		map_p;
+	t_image		sprite;
+	t_vector	sprite_position;
+	t_player	player;
+	t_floor		floor;
+	t_coin		coin;
+}				t_program;
 
 /*t_window	ft_init_window(void *mlx, int widht, int height, char *name); SAMPLE*/ 
 t_window	ft_init_window(void *mlx, t_map map_p, char *map_model, char *title);
