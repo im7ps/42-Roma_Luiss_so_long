@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 13:47:42 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/20 13:38:12 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/20 17:27:19 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_window ft_init_window(void *mlx, t_map map_p, char *map_model, char *title)
 	
 	height = ft_count_rows(map_model);
 	ft_printf("RIGHE: %d\n", height);
-	width = ft_strlen(map_p.map[0]) - 1; //l ultima colonna viene occupata dallo \n, per questo il -1
+	width = ft_strlen(map_p.map[0]) - 1;
 	ft_printf("COL: %d\n", width);
 	window.pointer = mlx_new_window(mlx, width * 128, height * 128, title);
 	window.size.x = width * 128;
