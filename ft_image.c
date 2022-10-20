@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 13:55:03 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/18 18:26:53 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/20 20:31:08 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,14 @@ char	**ft_load_path()
 	int		i;
 
 	i = 0;
-	img_path = (char **) malloc(sizeof(char*) * 6);
-	img_path[0] = "/Users/sgerace/42-Roma_Luiss_so_long/images/collectible.xpm";
-	img_path[1] = "/Users/sgerace/42-Roma_Luiss_so_long/images/danger.xpm";
-	img_path[2] = "/Users/sgerace/42-Roma_Luiss_so_long/images/exit.xpm";
-	img_path[3] = "/Users/sgerace/42-Roma_Luiss_so_long/images/grass.xpm";
-	img_path[4] = "/Users/sgerace/42-Roma_Luiss_so_long/images/player.xpm";
-	img_path[5] = "/Users/sgerace/42-Roma_Luiss_so_long/images/wall.xpm";
+	img_path = (char **) malloc(sizeof(char*) * 7);
+	img_path[0] = "/Users/sgerace/Desktop/42student/so_long/images/collectible.xpm";
+	img_path[1] = "/Users/sgerace/Desktop/42student/so_long/images/danger.xpm";
+	img_path[2] = "/Users/sgerace/Desktop/42student/so_long/images/exit.xpm";
+	img_path[3] = "/Users/sgerace/Desktop/42student/so_long/images/grass.xpm";
+	img_path[4] = "/Users/sgerace/Desktop/42student/so_long/images/player.xpm";
+	img_path[5] = "/Users/sgerace/Desktop/42student/so_long/images/wall.xpm";
+	img_path[6] = "/Users/sgerace/Desktop/42student/so_long/images/exit_success.xpm";
 	return (img_path);
 }
 
@@ -34,13 +35,14 @@ void	**ft_load_img(void	*mlx, t_image image)
 	void	**img_array;
 
 	img_path = ft_load_path();
-	img_array = (void **) malloc(sizeof(void*) * 6);
+	img_array = (void **) malloc(sizeof(void*) * 7);
 	img_array[0] = mlx_xpm_file_to_image(mlx, img_path[0], &image.size.x, &image.size.y);
 	img_array[1] = mlx_xpm_file_to_image(mlx, img_path[1], &image.size.x, &image.size.y);
 	img_array[2] = mlx_xpm_file_to_image(mlx, img_path[2], &image.size.x, &image.size.y);
 	img_array[3] = mlx_xpm_file_to_image(mlx, img_path[3], &image.size.x, &image.size.y);
 	img_array[4] = mlx_xpm_file_to_image(mlx, img_path[4], &image.size.x, &image.size.y);
 	img_array[5] = mlx_xpm_file_to_image(mlx, img_path[5], &image.size.x, &image.size.y);
+	img_array[6] = mlx_xpm_file_to_image(mlx, img_path[6], &image.size.x, &image.size.y);
 	return (img_array);
 }
 
@@ -75,6 +77,10 @@ t_image		ft_new_sprite(void *mlx, char img)
 	else if (img == 'D')
 	{
 		image.pointer = image.img_array[1];
+	}
+	else if (img == 'S')
+	{
+		image.pointer = image.img_array[6];
 	}
 	image.pixels = mlx_get_data_addr(image.pointer, &image.bits_per_pixel, &image.line_size, &image.endian);
 	return (image);

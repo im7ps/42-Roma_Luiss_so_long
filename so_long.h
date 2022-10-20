@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/18 19:07:07 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/20 19:48:54 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ typedef struct	s_player {
 	t_image		sprite;
 }				t_player;
 
+typedef struct	s_success {
+	t_vector	position;
+	t_image		sprite;
+}				t_success;
+
+typedef struct	s_exit {
+	t_vector	position;
+	t_image		sprite;
+}				t_exit;
+
 typedef struct s_map
 {
 	char	**map;
@@ -79,6 +89,8 @@ typedef struct	s_program {
 	t_player	player;
 	t_floor		floor;
 	t_coin		coin;
+	t_success	success;
+	t_exit		exit;
 }				t_program;
 
 /*t_window	ft_init_window(void *mlx, int widht, int height, char *name); SAMPLE*/ 
