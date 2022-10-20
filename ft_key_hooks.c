@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 14:13:09 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/18 20:22:16 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/20 13:29:16 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,30 @@ int	ft_input(int key, t_program *program)
 
 	x = program->player.position.x / 128;
 	y = program->player.position.y / 128;
-	ft_printf("Ei tu in %d %d Va pigghia i sordi!\n", program->player.position.x/128, program->player.position.y/128);
+	//ft_printf("Ei tu in %d %d Va pigghia i sordi!\n", program->player.position.x / 128, program->player.position.y / 128);
 	//program->floor.position.x = program->player.position.x;
 	//program->floor.position.y = program->player.position.y;
 	//mlx_put_image_to_window(program->mlx, program->window.pointer, program->floor.sprite.pointer, program->floor.position.x, program->floor.position.y);
-	if (key == 2) //destra
-	{
+	//if (key == 2) //destra
+	//{
+		//x = program->player.position.y / 128;
+		//y = program->player.position.x / 128;
+		//ft_printf("Pos: %d %d\n", x, y);
 		//if (program->map_p.map[x + 1][y] == '1')
 		//{
 		//	ft_printf("Murooooooo\n");
+		//}
+		//else
+		//{
+		//	program->player.position.x += 128;
+		//	mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
 		//}
 		//else if (program->map_p.map[x + 1][y] == 'E')
 		//{
 		//	if (program->map_p.c == 0)
 		//	{
-				program->player.position.x += 128;
-				mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
+		//		program->player.position.x += 128;
+		//		mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
 		//		ft_printf("End Game, ggwp!\n");
 		//	}
 		//	else
@@ -62,9 +70,9 @@ int	ft_input(int key, t_program *program)
 		//	program->player.position.x += 128;
 		//	mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
 		//}
-	}
-	else if (key == 0) //sinistra
-	{
+	//}
+	//else if (key == 0) //sinistra
+	//{
 		//if (program->map_p.map[x][y - 1] == '1')
 		//{
 		//	ft_printf("Murooooooo\n");
@@ -73,7 +81,7 @@ int	ft_input(int key, t_program *program)
 		//{
 		//	if (program->map_p.c == 0)
 		//	{
-				program->player.position.x -= 128;
+				//program->player.position.x -= 128;
 		//		ft_printf("End Game, ggwp!\n");
 		//	}
 		//	else
@@ -83,24 +91,24 @@ int	ft_input(int key, t_program *program)
 		//{
 		//	program->map_p.c = program->map_p.c - 1;
 		//	program->map_p.map[x][y - 1] = '0';
-			mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
+			//mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
 		//}
 			//program->player.position.x += 128;
-	}
+	//}
 	//	program->player.position.x -= 128;
-	else if (key == 1) //giú
-	{
-		ft_printf("Key: %d\n", key);
-		program->player.position.y += 128;
-		mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
-	}
+	//else if (key == 1) //giú
+	//{
+	//	ft_printf("Key: %d\n", key);
 	//	program->player.position.y += 128;
-	else if (key == 13) //su
-	{
-		ft_printf("Key: %d\n", key);
-		program->player.position.y -= 128;
-		mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
-	}
+	//	mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
+	//}
+	//	program->player.position.y += 128;
+	//else if (key == 13) //su
+	//{
+	//	ft_printf("Key: %d\n", key);
+	//	program->player.position.y -= 128;
+	//	mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
+	//}
 	//	program->player.position.y -= 128;
 	//mlx_put_image_to_window(program->mlx, program->window.pointer, program->player.sprite.pointer, program->player.position.x, program->player.position.y);
 	//ft_printf("Key pressed: %d\n", key);

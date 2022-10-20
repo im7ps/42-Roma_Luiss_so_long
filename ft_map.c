@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:11:33 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/18 20:19:51 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/20 14:03:34 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,44 @@ void ft_load_textures(t_program *program, t_map  map_p, const char *map_model)
 {
 	int	i;
 	int	j;
+	int	cols;
+	int	rows;
 
+	cols = ft_strlen(map_p.map[0]) - 1;
+	rows = ft_count_rows(map_model);
+	//ft_printf("COL TEXT: %d\n", cols);
+	//ft_printf("RIGHE TEXT: %d\n", rows);
 	i = 0;
-	while (i < ft_count_rows(map_model))
+	while (i < cols)
 	{
+		ft_printf("Colonna: %d\n", i);
 		j = 0;
-		while (j < ft_strlen(map_p.map[0]) - 1)
+		while (j < rows)
 		{
-			ft_printf("CURRENT: %c\n", map_p.map[i][j]);
-			program->sprite = ft_new_sprite(program->mlx, map_p.map[i][j]);
-			program->sprite_position.x = i * 128;
-			program->sprite_position.y = j * 128;
-			if (map_p.map[i][j] == 'P')
-			{
-				program->player.position.x = i * 128;
-				program->player.position.y = j * 128;
-				program->player.sprite.pointer = program->sprite.pointer;
-			}
-			if (map_p.map[i][j] == '0')
-			{
-				//program->player.position.y = i * 128;
-				//program->player.position.x = j * 128;
-				program->floor.sprite.pointer = program->sprite.pointer;
-			}
-			if (map_p.map[i][j] == 'C')
-			{
-				//program->coin.position.y = i * 128;
-				//program->coin.position.x = j * 128;
-				program->coin.sprite.pointer = program->sprite.pointer;
-			}
-			mlx_put_image_to_window(program->mlx, program->window.pointer, program->sprite.pointer, program->sprite_position.y, program->sprite_position.x);
+			ft_printf("Riga: %d\n", j);
+			//ft_printf("CURRENT: %c\n", map_p.map[i][j]);
+			//program->sprite = ft_new_sprite(program->mlx, map_p.map[i][j]);
+			//program->sprite_position.x = i * 128;
+			//program->sprite_position.y = j * 128;
+			//if (map_p.map[i][j] == 'P')
+			//{
+			//	//program->player.position.x = i * 128;
+			//	//program->player.position.y = j * 128;
+			//	program->player.sprite.pointer = program->sprite.pointer;
+			//}
+			//if (map_p.map[i][j] == '0')
+			//{
+			//	//program->player.position.y = i * 128;
+			//	//program->player.position.x = j * 128;
+			//	program->floor.sprite.pointer = program->sprite.pointer;
+			//}
+			//if (map_p.map[i][j] == 'C')
+			//{
+			//	//program->coin.position.y = i * 128;
+			//	//program->coin.position.x = j * 128;
+			//	program->coin.sprite.pointer = program->sprite.pointer;
+			//}
+			//mlx_put_image_to_window(program->mlx, program->window.pointer, program->sprite.pointer, program->sprite_position.x, program->sprite_position.y);
 			j++;
 		}
 		i++;
@@ -82,12 +90,12 @@ int	upload_map(t_map  *map_ptr, const char *map_model)
 	while (i++ < map_ptr->rows - 1)
 		map_ptr->map[i] = get_next_line(fd, 1);
 	close(fd);
-	if(check_map_errors(map_ptr, map_model) == 1)
-	{
-		ft_printf("Error\n");
-		return (1);
-	}
-	else
-		ft_printf("Valid\n");
+	//if(check_map_errors(map_ptr, map_model) == 1)
+	//{
+	//	ft_printf("Error\n");
+	//	return (1);
+	//}
+	//else
+	//	ft_printf("Valid\n");
 	return (0);
 }

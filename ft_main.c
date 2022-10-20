@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 15:17:47 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/18 19:34:28 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/20 13:39:28 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	main(int argc, char **argv)
 	program.mlx = mlx_init();
 	program.window = ft_init_window(program.mlx, program.map_p, argv[1], "Ice Cube");
 	ft_load_textures(&program, program.map_p, argv[1]);
-	mlx_key_hook(program.window.pointer, *ft_input, &program);
+	//mlx_key_hook(program.window.pointer, *ft_input, &program);
 	//mlx_loop_hook(program.mlx, *ft_update, &program);
 
 	mlx_loop(program.mlx);
