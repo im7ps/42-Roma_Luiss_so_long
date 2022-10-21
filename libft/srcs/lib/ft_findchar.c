@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_findchar.c                                        :+:      :+:    :+:   */
+/*   ft_findchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:21:05 by sgerace           #+#    #+#             */
-/*   Updated: 2022/07/03 20:44:38 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/21 20:06:42 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //Questa funzione è stata creata appositamente per so_long, da non
-//usare per altri programmi, ritorna 0 in caso di fallimento, 1 altrimenti
+//usare per altri pmi, ritorna 0 in caso di fallimento, 1 altrimenti
 
 #include	"../../includes/libft.h"
 #include <stdio.h>
 
-int ft_findchar(const char *s, int c)
+int	ft_findchar(const char *s, int c)
 {
 	int	i;
 

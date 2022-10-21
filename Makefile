@@ -2,7 +2,7 @@ NAME	=	so_long
 
 CC		=	gcc
 
-CFLAGS	=	-Wall
+CFLAGS	=	-Wall -Wextra -Werror
 
 SRC		=	ft_main.c \
 			ft_image.c \
@@ -25,7 +25,7 @@ RM		=	rm -rf
 
 $(NAME):	$(OBJ)
 			@make -C ./libft
-			$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(MLX) $(LIBFT)
+			$(CC) $(CFLAGS) -lmlx -framework OpenGL -framework AppKit -o $(NAME) $(OBJ) $(MLX) $(LIBFT)
 
 all:		$(NAME)
 

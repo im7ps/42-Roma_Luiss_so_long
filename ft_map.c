@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:11:33 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/20 20:31:26 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/21 20:12:46 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //x sono le colonne quindi j
 //y sono le righe quindi i
 
-void ft_load_textures(t_program *program, t_map  map_p, const char *map_model)
+void	ft_load_textures(t_p *p, t_map map_p, const char *map_model)
 {
 	int	i;
 	int	j;
@@ -30,38 +30,41 @@ void ft_load_textures(t_program *program, t_map  map_p, const char *map_model)
 		j = 0;
 		while (j < cols)
 		{
-			//ft_printf("Colonna: %d\n", j);
-			program->sprite = ft_new_sprite(program->mlx, map_p.map[i][j]);
-			program->sprite_position.x = j * 128;
-			program->sprite_position.y = i * 128;
+			p->sprite = ft_new_sprite(p->mlx, map_p.map[i][j]);
+			p->sprite_pos.x = j * 128;
+			p->sprite_pos.y = i * 128;
 			if (map_p.map[i][j] == 'P')
 			{
-				program->player.position.x = j * 128;
-				program->player.position.y = i * 128;
-				program->player.sprite.pointer = program->sprite.pointer;
+				p->player.pos.x = j * 128;
+				p->player.pos.y = i * 128;
+				p->player.sprite.ptr = p->sprite.ptr;
 			}
 			if (map_p.map[i][j] == '0')
 			{
-				program->floor.sprite.pointer = program->sprite.pointer;
+				p->floor.sprite.ptr = p->sprite.ptr;
 			}
 			if (map_p.map[i][j] == 'C')
 			{
-				program->coin.sprite.pointer = program->sprite.pointer;
+				p->coin.sprite.ptr = p->sprite.ptr;
 			}
 			if (map_p.map[i][j] == 'E')
 			{
-				program->exit.position.x = j * 128;
-				program->exit.position.y = i * 128;
-				program->exit.sprite.pointer = program->sprite.pointer;
+				p->exit.pos.x = j * 128;
+				p->exit.pos.y = i * 128;
+				p->exit.sprite.ptr = p->sprite.ptr;
 			}
-			mlx_put_image_to_window(program->mlx, program->window.pointer, program->sprite.pointer, program->sprite_position.x, program->sprite_position.y);
+			if (map_p.map[i][j] == '1')
+			{
+				p->wall.sprite.ptr = p->sprite.ptr;
+			}
+			mlx_put_image_to_window(p->mlx, p->window.ptr, p->sprite.ptr, p->sprite_pos.x, p->sprite_pos.y);
 			j++;
 		}
 		i++;
 	}
 }
 
-int	check_map_errors(t_map  *map_ptr, const char *map_model)
+int	check_map_errors(t_map *map_ptr, const char *map_model)
 {
 	if (empty_or_invalid_checker(map_ptr, map_model) != 0)
 		return (1);
@@ -74,12 +77,12 @@ int	check_map_errors(t_map  *map_ptr, const char *map_model)
 	return (0);
 }
 
-int	upload_map(t_map  *map_ptr, const char *map_model)
+int	upload_map(t_map *map_ptr, const char *map_model)
 {
 	int	fd;
 	int	i;
 
-	i = -1; //i = -1 così posso risparmiare un rigo e aumentare la i nella condizione del while 4 righe in basso
+	i = -1;
 	map_ptr->rows = ft_count_rows(map_model);
 	fd = open(map_model, O_RDONLY);
 	if (fd == -1)
@@ -91,7 +94,7 @@ int	upload_map(t_map  *map_ptr, const char *map_model)
 	while (i++ < map_ptr->rows - 1)
 		map_ptr->map[i] = get_next_line(fd, 1);
 	close(fd);
-	if(check_map_errors(map_ptr, map_model) == 1)
+	if (check_map_errors(map_ptr, map_model) == 1)
 	{
 		ft_printf("Error\n");
 		return (1);
