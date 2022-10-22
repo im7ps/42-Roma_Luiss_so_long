@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 18:23:34 by sgerace           #+#    #+#             */
-/*   Updated: 2022/06/30 17:23:27 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/22 22:54:50 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../includes/libft.h"
+#include <stdio.h>
 
 char	*store_extra_char(char	*buffer)
 {
@@ -27,6 +28,7 @@ char	*store_extra_char(char	*buffer)
 		return (NULL);
 	}
 	temp = (char *) malloc (sizeof(char) * (ft_strlen(buffer) - i + 1));
+	//printf("GNL TEMP %p\n", temp);
 	if (!temp)
 		return (NULL);
 	j = 0;
@@ -50,7 +52,9 @@ char	*get_line(char	*buffer)
 		return (NULL);
 	while (buffer[i] && buffer[i] != '\n')
 		i++;
+	//printf("GNL buffer %p\n", buffer);
 	dst = (char *) malloc (sizeof(char) * (i + 2));
+	printf("GNL DST %p\n", dst);
 	if (!dst)
 		return (NULL);
 	i = 0;
@@ -65,6 +69,7 @@ char	*get_line(char	*buffer)
 		i++;
 	}
 	dst[i] = '\0';
+	//free(buffer);
 	return (dst);
 }
 
@@ -74,6 +79,7 @@ char	*read_and_join(int fd, char	*dst, int buffer_size)
 	char	*buffer;
 
 	buffer = malloc(sizeof(char) * (buffer_size + 1));
+	//printf("GNL BUFFER %p\n", buffer);
 	if (!buffer)
 		return (NULL);
 	char_read = 1;
@@ -87,8 +93,10 @@ char	*read_and_join(int fd, char	*dst, int buffer_size)
 		}
 		buffer[char_read] = '\0';
 		dst = ft_strjoin(dst, buffer);
+		
 	}
 	free (buffer);
+	//printf("DST 9999999999 %p\n", dst);
 	return (dst);
 }
 
@@ -96,6 +104,7 @@ char	*get_next_line(int fd, int buffer_size)
 {
 	static char	*buffer[257];
 	char		*current_line;
+	static	int k;
 
 	if (fd < 0 || fd > 256 || buffer_size <= 0)
 		return (NULL);
@@ -104,5 +113,7 @@ char	*get_next_line(int fd, int buffer_size)
 		return (NULL);
 	current_line = get_line(buffer[fd]);
 	buffer[fd] = store_extra_char(buffer[fd]);
+	k++;
+	printf("!! %p\n giro: %d\n", current_line, k);
 	return (current_line);
 }

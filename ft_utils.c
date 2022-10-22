@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:09:09 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/22 17:02:05 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/22 23:00:36 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int ft_count_rows(const char *map)
 {
-	int	counter;
+	int		counter;
 	int		fd;
 	char	*row;
 
@@ -26,17 +26,18 @@ int ft_count_rows(const char *map)
 		return (1);
 	}
 	row = get_next_line(fd, 1);
-	if (row == NULL)	//questo serve perchè anche se la mappa è vuota per fare almeno un controllo counter deve essere almeno 1
+	if (row == NULL)
 	{
-		counter++;
+		return (0);
 	}
 	while (row)
 	{
-		row = get_next_line(fd, 1);
 		counter++;
+		free(row);
+		row = get_next_line(fd, 1);
+		free(row);
 	}
 	close(fd);
-	free(row);
 	return (counter);
 }
 

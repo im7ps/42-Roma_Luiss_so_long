@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/22 16:33:00 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/22 21:11:43 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@
 # include "mlx.h"
 
 /* vector with an x and y */
-typedef struct s_vector
-{
+typedef struct s_vector {
 	int	x;
 	int	y;
 }				t_vector;
@@ -46,47 +45,15 @@ typedef struct s_image {
 	int			endian;
 }				t_image;
 
-typedef struct s_element{
+typedef struct s_element {
 	t_vector	pos;
 	t_image		sprite;
 }				t_element;
 
-/*
-typedef struct s_floor {
-	t_vector	pos;
-	t_image		sprite;
-}				t_floor;
-
-typedef struct s_coin {
-	t_vector	pos;
-	t_image		sprite;
-}				t_coin;
-
-typedef struct s_player {
-	t_vector	pos;
-	t_image		sprite;
-}				t_player;
-
-typedef struct s_success {
-	t_vector	pos;
-	t_image		sprite;
-}				t_success;
-
-typedef struct s_exit {
-	t_vector	pos;
-	t_image		sprite;
-}				t_exit;
-
-typedef struct s_wall {
-	t_vector	pos;
-	t_image		sprite;
-}				t_wall;
-*/
-
-typedef struct s_map
-{
+typedef struct s_map {
 	char	**map;
 	int		rows;
+	int		cols;
 	int		e;
 	int		p;
 	int		c;
@@ -108,6 +75,7 @@ int			ft_input(int key, t_p *p);
 int			ft_count_rows(const char *map_model);
 char		ft_find_last(t_map *map_ptr, const char *map_model);
 void		ft_load_textures(t_p *p, t_map map_p, const char *map_model);
+int			ft_count_cols(const char *map_model);
 int			check_map_errors(t_map *map_ptr, const char *map_model);
 int			upload_map(t_map *map_ptr, const char *map_model);
 int			rectangle_checker(t_map *map_ptr, const char *map_model);

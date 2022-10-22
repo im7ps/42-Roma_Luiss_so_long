@@ -2,7 +2,7 @@ NAME	=	so_long
 
 CC		=	gcc
 
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall
 
 SRC		=	ft_main.c \
 			ft_image.c \

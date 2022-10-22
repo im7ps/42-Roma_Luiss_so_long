@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:11:33 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/22 17:13:14 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/22 22:57:54 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,17 +103,32 @@ int	ft_strlen2(char *str)
 
 int	ft_count_cols(const char *map_model)
 {
-	int	fd;
-	int	cols;
+	int		fd;
+	int		cols;
+	char	*buffer;
 
+	cols = 0;
+	buffer = malloc(sizeof(char) * (1));
 	fd = open(map_model, O_RDONLY);
 	if (fd == -1)
 	{
 		ft_printf("Errore in upload map\n");
 		return (1);
 	}
-	cols = ft_strlen2(get_next_line(fd, 1));
+	while (*buffer != '\n')
+	{
+		read(fd, buffer, 1);
+		if (*buffer == '\0')
+		{
+			free(buffer);
+			buffer = NULL;
+			return (0);
+		}
+		cols++;
+	}
 	close(fd);
+	free(buffer);
+	buffer = NULL;
 	return (cols);
 }
 
@@ -121,11 +136,10 @@ int	upload_map(t_map *map_ptr, const char *map_model)
 {
 	int	fd;
 	int	i;
-	int	cols;
 
-	i = -1;
-	cols = ft_count_cols(map_model);
 	map_ptr->rows = ft_count_rows(map_model);
+	ft_printf("ROWS %d\n", map_ptr->rows);
+	//map_ptr->cols = ft_count_cols(map_model);
 	fd = open(map_model, O_RDONLY);
 	if (fd == -1)
 	{
@@ -133,19 +147,26 @@ int	upload_map(t_map *map_ptr, const char *map_model)
 		return (1);
 	}
 	map_ptr->map = (char **) malloc (sizeof(char *) * (map_ptr->rows + 1));
-	while (i < map_ptr->rows - 1)
+	ft_printf("MAP[0] pre %p\n", map_ptr->map);
+	i = 0;
+	ft_printf("%d\n",  map_ptr->rows);
+	while (i < map_ptr->rows)
 	{
-		map_ptr->map[i] = (char *) malloc (sizeof (char) * (cols));
+		//map_ptr->map[i] = malloc (sizeof(char *) * (map_ptr->cols + 1));
 		map_ptr->map[i] = get_next_line(fd, 1);
+		ft_printf("MAP %p \"%s\"\n", map_ptr->map[i], map_ptr->map[i]);
+		fflush(stdout);
 		i++;
 	}
+	map_ptr->map[i] = NULL; 
+	ft_printf("MAP[0] post %p | %d\n", map_ptr->map, i);
 	close(fd);
-	if (check_map_errors(map_ptr, map_model) == 1)
-	{
-		ft_printf("Error\n");
-		return (1);
-	}
-	else
-		ft_printf("Valid\n");
+	//if (check_map_errors(map_ptr, map_model) == 1)
+	//{
+	//	ft_printf("Error\n");
+	//	return (1);
+	//}
+	//else
+	//	ft_printf("Valid\n");
 	return (0);
 }

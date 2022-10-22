@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgerace <sgerace@student.42roma.it>        +#+  +:+       +#+        */
+/*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/27 18:04:53 by sgerace           #+#    #+#             */
-/*   Updated: 2022/06/30 20:47:57 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/22 22:22:15 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../../includes/libft.h"
+#include <stdio.h>
 
 char	*ft_strjoin(char *s1, char *s2)
 {

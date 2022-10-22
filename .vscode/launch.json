@@ -8,22 +8,13 @@
 			"name": "(lldb) Launch",
 			"type": "cppdbg",
 			"request": "launch",
-			"p": "/Users/sgerace/Desktop/42student/so_long/so_long",
+			"program": "/Users/sgerace/Desktop/42student/so_long/so_long",
 			"args": ["maps/map2.ber"],
 			"stopAtEntry": false,
 			"cwd": "/Users/sgerace/Desktop/42student/so_long",
 			"environment": [],
 			"externalConsole": false,
 			"MIMode": "lldb"
-		},
-		{
-			"type": "node",
-			"request": "launch",
-			"name": "Launch p",
-			"skipFiles": [
-				"<node_internals>/**"
-			],
-			"p": "${file}"
 		}
 	]
 }

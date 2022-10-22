@@ -1,0 +1,38 @@
+ROWS 1
+MAP[0] pre 0x7f80ecd0df70
+1
+MAP 0x7f80ecd0c190 "1111111119
+"
+GNL DST 0x7f80ecd0df70
+!! 0x7f80ecd0df70
+ giro: 1
+GNL DST 0x7f80ecd0df70
+!! 0x7f80ecd0df70
+ giro: 2
+GNL DST 0x7f80ecd0c190
+!! 0x7f80ecd0c190
+ giro: 3
+MAP[0] post 0x7f80ecd0df70 | 1
+Process:         so_long [76020]
+Path:            /Volumes/VOLUME/*/so_long
+Load Address:    0x10a45d000
+Identifier:      so_long
+Version:         ???
+Code Type:       X86-64
+Parent Process:  leaks [76019]
+
+Date/Time:       2022-10-22 23:00:01.073 +0200
+Launch Time:     2022-10-22 23:00:00.924 +0200
+OS Version:      Mac OS X 10.14.6 (18G9323)
+Report Version:  7
+Analysis Tool:   /Applications/Xcode.app/Contents/Developer/usr/bin/leaks
+Analysis Tool Version:  Xcode 11.3.1 (11C505)
+
+Physical footprint:         1168K
+Physical footprint (peak):  1168K
+----
+
+leaks Report Version: 3.0
+Process 76020: 815 nodes malloced for 113 KB
+Process 76020: 0 leaks for 0 total leaked bytes.
+
