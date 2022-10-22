@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:09:09 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/17 19:02:11 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/22 17:02:05 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int ft_count_rows(const char *map)
 	row = get_next_line(fd, 1);
 	if (row == NULL)	//questo serve perchè anche se la mappa è vuota per fare almeno un controllo counter deve essere almeno 1
 	{
-	counter++;
+		counter++;
 	}
 	while (row)
 	{
@@ -42,22 +42,22 @@ int ft_count_rows(const char *map)
 
 char ft_find_last(t_map  *map_ptr, const char *map_model)
 {
-    int i;
-    int j;
-    
-    i = 0;
-    while (map_ptr->map[i] && i < ft_count_rows(map_model))
-    {
-        j = 0;
-        while (map_ptr->map[i][j])
-        {
-            j++;
-        }
-        i++;
-    }
-    if (map_ptr->map[i-1][j-1] == '\n')
-        return (map_ptr->map[i-1][j-1]);
-    return (map_ptr->map[i-1][j]); 
+	int i;
+	int j;
+		
+	i = 0;
+	while (map_ptr->map[i] && i < ft_count_rows(map_model))
+	{
+		j = 0;
+		while (map_ptr->map[i][j])
+		{
+			j++;
+		}
+		i++;
+	}
+	if (map_ptr->map[i-1][j-1] == '\n')
+		return (map_ptr->map[i-1][j-1]);
+	return (map_ptr->map[i-1][j]); 
 }
 
 void	moves_counter(void	*mlx_ptr, void	*win_ptr)

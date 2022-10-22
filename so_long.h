@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/21 20:32:48 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/22 16:33:00 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,12 @@ typedef struct s_image {
 	int			endian;
 }				t_image;
 
+typedef struct s_element{
+	t_vector	pos;
+	t_image		sprite;
+}				t_element;
+
+/*
 typedef struct s_floor {
 	t_vector	pos;
 	t_image		sprite;
@@ -75,6 +81,7 @@ typedef struct s_wall {
 	t_vector	pos;
 	t_image		sprite;
 }				t_wall;
+*/
 
 typedef struct s_map
 {
@@ -91,13 +98,7 @@ typedef struct s_p {
 	t_map		map_p;
 	t_image		sprite;
 	t_vector	sprite_pos;
-	//t_elemts	elem[6]; //DA FARE: un array con tutte le strutture degli elementi presenti nel gioco
-	t_player	player;
-	t_floor		floor;
-	t_coin		coin;
-	t_success	success;
-	t_exit		exit;
-	t_wall		wall;
+	t_element	*element;
 }				t_p;
 
 t_window	ft_init_window(void *mlx, t_map map_p, char *m_model, char *title);
