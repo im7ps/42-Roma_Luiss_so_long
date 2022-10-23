@@ -9,7 +9,7 @@
 			"type": "cppdbg",
 			"request": "launch",
 			"program": "/Users/sgerace/Desktop/42student/so_long/so_long",
-			"args": ["maps/map2.ber"],
+			"args": ["maps/map1.ber"],
 			"stopAtEntry": false,
 			"cwd": "/Users/sgerace/Desktop/42student/so_long",
 			"environment": [],

@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/03 15:21:05 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/21 20:06:42 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/23 22:09:17 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 //usare per altri pmi, ritorna 0 in caso di fallimento, 1 altrimenti
 
 #include	"../../includes/libft.h"
-#include <stdio.h>
 
 int	ft_findchar(const char *s, int c)
 {

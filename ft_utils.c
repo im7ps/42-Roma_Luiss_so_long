@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:09:09 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/22 23:00:36 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/23 22:15:26 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,13 @@ int ft_count_rows(const char *map)
 		return (1);
 	}
 	row = get_next_line(fd, 1);
-	if (row == NULL)
-	{
-		return (0);
-	}
 	while (row)
 	{
-		counter++;
 		free(row);
 		row = get_next_line(fd, 1);
-		free(row);
+		counter++;
 	}
+	free(row);
 	close(fd);
 	return (counter);
 }

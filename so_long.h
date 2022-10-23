@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/22 21:11:43 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/23 21:20:39 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int			ft_count_rows(const char *map_model);
 char		ft_find_last(t_map *map_ptr, const char *map_model);
 void		ft_load_textures(t_p *p, t_map map_p, const char *map_model);
 int			ft_count_cols(const char *map_model);
+void		ft_free_stuff(t_p *p);
 int			check_map_errors(t_map *map_ptr, const char *map_model);
 int			upload_map(t_map *map_ptr, const char *map_model);
 int			rectangle_checker(t_map *map_ptr, const char *map_model);

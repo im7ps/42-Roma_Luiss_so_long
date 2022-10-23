@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:12:44 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/21 20:13:18 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/23 22:14:56 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,16 +94,22 @@ int	walls_checker(t_map *map_ptr, const char *map_model)
 	int	i;
 
 	i = 0;
-	map_ptr->rows = ft_count_rows(map_model) - 1;
+	map_ptr->rows = ft_count_rows(map_model);
 	if (ft_findchar(map_ptr->map[0], '1') == 1)
+	{
 		return (1);
+	}
 	if (ft_findchar(map_ptr->map[map_ptr->rows], '1') == 1)
-		return (3);
+	{
+		return (1);
+	}
 	while (i < map_ptr->rows && map_ptr->map[i++])
 	{
 		if (((map_ptr->map[i][0]) != '1') || \
 			((map_ptr->map[i][ft_strlen(map_ptr->map[i]) - 2]) != '1'))
-			return (2);
+		{
+			return (1);
+		}
 	}
 	return (0);
 }
