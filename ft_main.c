@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 15:17:47 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/23 22:12:47 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/23 22:48:13 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 
 void	ft_free_stuff(t_p *p)
 {
-	int i;
-	
-	i = 0;
-	//while (p->map_p.rows > 0 && i < 6)
-	//{
-	//	free(p->sprite.img_array);
-	//	i++;
-	//}
-	//free(p->sprite.img_array);
+	int	i;
+
 	i = 0;
 	while (p->map_p.map[i] != NULL && i < p->map_p.rows)
 	{
@@ -48,7 +41,7 @@ int	main(int argc, char **argv)
 	}
 	p.mlx = mlx_init();
 	p.window = ft_init_window(p.mlx, p.map_p, argv[1], "Ice Cube");
-	p.element = (t_element *) malloc (sizeof(t_element) * 6);
+	p.e = (t_e *) malloc (sizeof(t_e) * 6);
 	ft_load_textures(&p, p.map_p, argv[1]);
 	mlx_key_hook(p.window.ptr, *ft_input, &p);
 	mlx_loop(p.mlx);

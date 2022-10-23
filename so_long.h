@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/23 21:20:39 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/23 22:55:36 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ typedef struct s_image {
 	int			endian;
 }				t_image;
 
-typedef struct s_element {
+typedef struct s_e {
 	t_vector	pos;
 	t_image		sprite;
-}				t_element;
+}				t_e;
 
 typedef struct s_map {
 	char	**map;
@@ -65,25 +65,38 @@ typedef struct s_p {
 	t_map		map_p;
 	t_image		sprite;
 	t_vector	sprite_pos;
-	t_element	*element;
+	t_e			*e;
 }				t_p;
 
 t_window	ft_init_window(void *mlx, t_map map_p, char *m_model, char *title);
 t_image		ft_new_sprite(void *mlx, char img);
 int			ft_close_w(void);
+
+void		ft_go_right(t_p *p, int x, int y);
+void		ft_go_left(t_p *p, int x, int y);
+void		ft_go_up(t_p *p, int x, int y);
+void		ft_go_down(t_p *p, int x, int y);
+
 int			ft_input(int key, t_p *p);
 int			ft_count_rows(const char *map_model);
 char		ft_find_last(t_map *map_ptr, const char *map_model);
 void		ft_load_textures(t_p *p, t_map map_p, const char *map_model);
 int			ft_count_cols(const char *map_model);
 void		ft_free_stuff(t_p *p);
+
+void		ft_handle_exit(t_p *p, int key);
+void		ft_handle_coin(t_p *p, int s_value, char dir, int d_value);
+void		ft_simple_movement(t_p *p, char dir, int d_value);
+void		ft_vertical_mov(t_p *p, int d_value, int s_value);
+void		ft_horizontal_mov(t_p *p, int d_value, int s_value);
+void		ft_update_score(t_p *p);
+
 int			check_map_errors(t_map *map_ptr, const char *map_model);
 int			upload_map(t_map *map_ptr, const char *map_model);
 int			rectangle_checker(t_map *map_ptr, const char *map_model);
 int			walls_checker(t_map *map_ptr, const char *map_model);
 int			empty_or_invalid_checker(t_map *map_ptr, const char *map_model);
 int			items_checker(t_map *map_ptr, const char *map_model);
-void		moves_counter(void	*mlx_ptr, void	*win_ptr);
 int			items_counter(char c);
 
 #endif

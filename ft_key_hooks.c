@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 14:13:09 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/23 21:25:47 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/23 22:54:48 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,10 @@ void	ft_update_score(t_p *p)
 
 	score++;
 	score_s = ft_itoa(score);
-	mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[4].sprite.ptr, 128, 0);
+	mlx_put_image_to_window(p->mlx, p->window.ptr, \
+		p->e[4].sprite.ptr, 128, 0);
 	mlx_string_put(p->mlx, p->window.ptr, 130, 15, 0xFF0000, score_s);
 	free(score_s);
-}
-
-void	ft_simple_movement(t_p *p, char dir, int d_value)
-{
-	mlx_put_image_to_window(p->mlx, p->window.ptr, \
-		p->element[1].sprite.ptr, p->element[0].pos.x, p->element[0].pos.y);
-	if (dir == 'L' || dir == 'R')
-	{
-		p->element[0].pos.x += d_value;
-	}
-	else if (dir == 'U' || dir == 'D')
-	{
-		p->element[0].pos.y += d_value;
-	}
-	mlx_put_image_to_window(p->mlx, p->window.ptr, \
-		p->element[0].sprite.ptr, p->element[0].pos.x, p->element[0].pos.y);
-	ft_update_score(p);
 }
 
 void	ft_handle_coin(t_p *p, int s_value, char dir, int d_value)
@@ -46,26 +30,22 @@ void	ft_handle_coin(t_p *p, int s_value, char dir, int d_value)
 	int	x;
 	int	y;
 
-	x = p->element[0].pos.x / 128;
-	y = p->element[0].pos.y / 128;
+	x = p->e[0].pos.x / 128;
+	y = p->e[0].pos.y / 128;
 	p->map_p.c = p->map_p.c - 1;
-	mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[1].sprite.ptr, p->element[0].pos.x, p->element[0].pos.y);
+	mlx_put_image_to_window(p->mlx, p->window.ptr, p->e[1].sprite.ptr, \
+		p->e[0].pos.x, p->e[0].pos.y);
 	if (dir == 'R' || dir == 'L')
-	{
-		p->map_p.map[y][x + d_value] = '0';
-		p->element[0].pos.x += s_value;
-	}
+		ft_horizontal_mov(p, d_value, s_value);
 	else if (dir == 'U' || dir == 'D')
-	{
-		p->map_p.map[y + d_value][x] = '0';
-		p->element[0].pos.y += s_value;
-	}
-	mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[0].sprite.ptr, p->element[0].pos.x, p->element[0].pos.y);
+		ft_vertical_mov(p, d_value, s_value);
+	mlx_put_image_to_window(p->mlx, p->window.ptr, p->e[0].sprite.ptr, \
+		p->e[0].pos.x, p->e[0].pos.y);
 	if (p->map_p.c == 0)
 	{
-		p->element[5].sprite = ft_new_sprite(p->mlx, 'S');
-		mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[5].sprite.ptr, \
-			p->element[3].pos.x, p->element[3].pos.y);
+		p->e[5].sprite = ft_new_sprite(p->mlx, 'S');
+		mlx_put_image_to_window(p->mlx, p->window.ptr, p->e[5].sprite.ptr, \
+			p->e[3].pos.x, p->e[3].pos.y);
 	}
 	ft_update_score(p);
 }
@@ -75,7 +55,8 @@ void	ft_handle_exit(t_p *p, int key)
 	if (p->map_p.c == 0)
 	{
 		ft_update_score(p);
-		mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[1].sprite.ptr, p->element[0].pos.x, p->element[0].pos.y);
+		mlx_put_image_to_window(p->mlx, p->window.ptr, p->e[1].sprite.ptr, \
+			p->e[0].pos.x, p->e[0].pos.y);
 		mlx_clear_window(p->mlx, p->window.ptr);
 		mlx_destroy_window(p->mlx, p->window.ptr);
 		ft_free_stuff(p);
@@ -89,125 +70,13 @@ void	ft_handle_exit(t_p *p, int key)
 	}
 }
 
-void	ft_go_right(t_p *p, int x, int y)
-{
-	p->map_p.map[y][x] = '0';
-	//if (p->map_p.c == 0)
-	//{
-	//	p->element[5].sprite = ft_new_sprite(p->mlx, 'S');
-	//	mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[5].sprite.ptr, \
-	//		p->element[3].pos.x, p->element[3].pos.y);
-	//}
-	if (p->map_p.map[y][x + 1] == '0')
-	{
-		ft_simple_movement(p, 'R', 128);
-	}
-	else if (p->map_p.map[y][x + 1] == 'E')
-	{
-		ft_handle_exit(p, 0);
-	}
-	else if (p->map_p.map[y][x + 1] == 'C')
-	{
-		ft_handle_coin(p, 128, 'R', 1);
-	}
-	else if (p->map_p.map[y][x + 1] == 'D')
-	{
-		mlx_destroy_window(p->mlx, p->window.ptr);
-		exit(0);
-	}
-}
-
-void	ft_go_left(t_p *p, int x, int y)
-{
-	p->map_p.map[y][x] = '0';
-	//if (p->map_p.c == 0)
-	//{
-	//	p->element[5].sprite = ft_new_sprite(p->mlx, 'S');
-	//	mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[5].sprite.ptr, \
-	//		p->element[3].pos.x, p->element[3].pos.y);
-	//}
-	if (p->map_p.map[y][x - 1] == '0')
-	{
-		ft_simple_movement(p, 'L', -128);
-	}
-	else if (p->map_p.map[y][x - 1] == 'E')
-	{
-		ft_handle_exit(p, 0);
-	}
-	else if (p->map_p.map[y][x - 1] == 'C')
-	{
-		ft_handle_coin(p, -128, 'L', -1);
-	}
-	else if (p->map_p.map[y][x - 1] == 'D')
-	{
-		mlx_destroy_window(p->mlx, p->window.ptr);
-		exit(0);
-	}
-}
-
-void	ft_go_up(t_p *p, int x, int y)
-{
-	p->map_p.map[y][x] = '0';
-	//if (p->map_p.c == 0)
-	//{
-	//	p->element[5].sprite = ft_new_sprite(p->mlx, 'S');
-	//	mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[5].sprite.ptr, \
-	//		p->element[3].pos.x, p->element[3].pos.y);
-	//}
-	if (p->map_p.map[y - 1][x] == '0')
-	{
-		ft_simple_movement(p, 'U', -128);
-	}
-	else if (p->map_p.map[y - 1][x] == 'E')
-	{
-		ft_handle_exit(p, 0);
-	}
-	else if (p->map_p.map[y - 1][x] == 'C')
-	{
-		ft_handle_coin(p, -128, 'U', -1);
-	}
-	else if (p->map_p.map[y - 1][x] == 'D')
-	{
-		mlx_destroy_window(p->mlx, p->window.ptr);
-		exit(0);
-	}
-}
-
-void	ft_go_down(t_p *p, int x, int y)
-{
-	p->map_p.map[y][x] = '0';
-	//if (p->map_p.c == 0)
-	//{
-	//	p->element[5].sprite = ft_new_sprite(p->mlx, 'S');
-	//	mlx_put_image_to_window(p->mlx, p->window.ptr, p->element[5].sprite.ptr, \
-	//		p->element[3].pos.x, p->element[3].pos.y);
-	//}
-	if (p->map_p.map[y + 1][x] == '0')
-	{
-		ft_simple_movement(p, 'D', 128);
-	}
-	else if (p->map_p.map[y + 1][x] == 'E')
-	{
-		ft_handle_exit(p, 0);
-	}
-	else if (p->map_p.map[y + 1][x] == 'C')
-	{
-		ft_handle_coin(p, 128, 'D', 1);
-	}
-	else if (p->map_p.map[y + 1][x] == 'D')
-	{
-		mlx_destroy_window(p->mlx, p->window.ptr);
-		exit(0);
-	}
-}
-
 int	ft_input(int key, t_p *p)
 {
 	int	x;
 	int	y;
 
-	x = p->element[0].pos.x / 128;
-	y = p->element[0].pos.y / 128;
+	x = p->e[0].pos.x / 128;
+	y = p->e[0].pos.y / 128;
 	mlx_string_put(p->mlx, p->window.ptr, 15, 15, 0xFF0000, "SCORE:");
 	if (key == 2)
 		ft_go_right(p, x, y);

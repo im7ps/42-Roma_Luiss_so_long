@@ -11,6 +11,8 @@ SRC		=	ft_main.c \
 			ft_map.c \
 			ft_map_checker.c \
 			ft_utils.c \
+			ft_moves.c \
+			ft_simple_mov.c \
 
 OBJ	=	$(SRC:.c=.o)
 
