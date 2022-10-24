@@ -6,11 +6,25 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 18:11:33 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/23 23:00:32 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/24 18:31:34 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+void	ft_texture_helper(t_p *p, int i, int j)
+{
+	if (p->map_p.map[i][j] == 'P')
+		ft_load_player(p, i, j);
+	if (p->map_p.map[i][j] == '0')
+		ft_load_floor(p);
+	if (p->map_p.map[i][j] == 'C')
+		ft_load_coin(p);
+	if (p->map_p.map[i][j] == 'E')
+		ft_load_exit(p, i, j);
+	if (p->map_p.map[i][j] == '1')
+		p->e[4].sprite.ptr = p->sprite.ptr;
+}
 
 void	ft_load_textures(t_p *p, t_map map_p, const char *map_model)
 {
@@ -30,30 +44,7 @@ void	ft_load_textures(t_p *p, t_map map_p, const char *map_model)
 			p->sprite = ft_new_sprite(p->mlx, map_p.map[i][j]);
 			p->sprite_pos.x = j * 128;
 			p->sprite_pos.y = i * 128;
-			if (map_p.map[i][j] == 'P')
-			{
-				p->e[0].pos.x = j * 128;
-				p->e[0].pos.y = i * 128;
-				p->e[0].sprite.ptr = p->sprite.ptr;
-			}
-			if (map_p.map[i][j] == '0')
-			{
-				p->e[1].sprite.ptr = p->sprite.ptr;
-			}
-			if (map_p.map[i][j] == 'C')
-			{
-				p->e[2].sprite.ptr = p->sprite.ptr;
-			}
-			if (map_p.map[i][j] == 'E')
-			{
-				p->e[3].pos.x = j * 128;
-				p->e[3].pos.y = i * 128;
-				p->e[3].sprite.ptr = p->sprite.ptr;
-			}
-			if (map_p.map[i][j] == '1')
-			{
-				p->e[4].sprite.ptr = p->sprite.ptr;
-			}
+			ft_texture_helper(p, i, j);
 			mlx_put_image_to_window(p->mlx, p->window.ptr, p->sprite.ptr, \
 				p->sprite_pos.x, p->sprite_pos.y);
 			j++;

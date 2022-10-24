@@ -6,7 +6,7 @@
 /*   By: sgerace <sgerace@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 23:19:46 by sgerace           #+#    #+#             */
-/*   Updated: 2022/10/23 22:55:36 by sgerace          ###   ########.fr       */
+/*   Updated: 2022/10/24 16:43:08 by sgerace          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_map {
 	int		e;
 	int		p;
 	int		c;
+	int		f;
 }	t_map;
 
 typedef struct s_p {
@@ -81,6 +82,11 @@ int			ft_input(int key, t_p *p);
 int			ft_count_rows(const char *map_model);
 char		ft_find_last(t_map *map_ptr, const char *map_model);
 void		ft_load_textures(t_p *p, t_map map_p, const char *map_model);
+void		ft_load_wall(t_p *p);
+void		ft_load_exit(t_p *p, int i, int j);
+void		ft_load_coin(t_p *p);
+void		ft_load_floor(t_p *p);
+void		ft_load_player(t_p *p, int i, int j);
 int			ft_count_cols(const char *map_model);
 void		ft_free_stuff(t_p *p);
 

@@ -13,6 +13,8 @@ SRC		=	ft_main.c \
 			ft_utils.c \
 			ft_moves.c \
 			ft_simple_mov.c \
+			ft_items.c \
+			ft_load_elem.c \
 
 OBJ	=	$(SRC:.c=.o)
 
@@ -40,5 +42,8 @@ fclean: 	clean
 			${RM} $(NAME) ${OBJ}
 
 re:			fclean all
+
+norme:		
+			@ norminette ${SRC}
 
 .PHONY:		all clean fclean re
